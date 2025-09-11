@@ -185,12 +185,12 @@ def extract_metadata(image_bytes):
 
 def query_openrouter(prompt, image_data=None):
     """Send query to OpenRouter API with image analysis capabilities"""
-    api_key = "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"
+    api_key = os.environ.get('OPENROUTER_API_KEY', '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')
     
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
-        "HTTP-Referer": "http://localhost:5001",
+        "HTTP-Referer": "https://visionbot.onrender.com",
         "X-Title": "VisionBot"
     }
     
@@ -355,5 +355,5 @@ def handle_query():
 
 if __name__ == '__main__':
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    port = int(os.environ.get('PORT', 8080))
+    port = int(os.environ.get('PORT', 5001))
     app.run(debug=False, port=port, host='0.0.0.0')

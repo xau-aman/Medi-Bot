@@ -51,4 +51,10 @@ yarn-error.log*
 
 # YOLO models (will be downloaded on first run)
 *.pt
-!yolov8n.pt
+
+# Temporary files
+*.tmp
+*.temp
+
+# System files
+*.log

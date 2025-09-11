@@ -1,0 +1,22 @@
+What I see:
+• {main_subject}
+• {key_elements}
+• {background}
+
+Objects:
+• {object_1}
+• {object_2}
+• {object_3}
+
+Colors:
+• {color_1}
+• {color_2}
+• {color_3}
+
+Setting:
+• {location}
+• {time_lighting}
+
+Details:
+• {detail_1}
+• {detail_2}

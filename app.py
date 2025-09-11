@@ -355,5 +355,5 @@ def handle_query():
 
 if __name__ == '__main__':
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    port = int(os.environ.get('PORT', 5001))
+    port = int(os.environ.get('PORT', 8080))
     app.run(debug=False, port=port, host='0.0.0.0')

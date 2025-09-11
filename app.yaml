@@ -1,0 +1,13 @@
+runtime: python311
+
+env_variables:
+  OPENROUTER_API_KEY: "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"
+
+automatic_scaling:
+  min_instances: 0
+  max_instances: 10
+
+resources:
+  cpu: 1
+  memory_gb: 1
+  disk_size_gb: 10

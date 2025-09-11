@@ -3,6 +3,7 @@ from flask_cors import CORS
 import os
 import cv2
 import numpy as np
+import torch
 from ultralytics import YOLO
 import requests
 import base64
@@ -17,7 +18,8 @@ CORS(app)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
-# Load YOLO model
+# Load YOLO model with safe globals
+torch.serialization.add_safe_globals(['ultralytics.nn.tasks.DetectionModel'])
 model = YOLO('yolov8n.pt')
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'bmp'}

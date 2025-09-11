@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import Hero from './components/Hero';
-import Upload from './components/Upload';
-import Analysis from './components/Analysis';
 import Chat from './components/Chat';
 import SpaceBackground from './components/SpaceBackground';
 import Navbar from './components/Navbar';
@@ -17,7 +15,6 @@ function App() {
   const [detections, setDetections] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showHackerWorkspace, setShowHackerWorkspace] = useState(false);
-  const [keySequence, setKeySequence] = useState([]);
 
   // Secret key combination: Shift + Shift + H (double tap Shift then H)
   React.useEffect(() => {

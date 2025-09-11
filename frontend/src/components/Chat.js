@@ -13,7 +13,7 @@ const Chat = ({ imageData, detections, onChatQuery, onImageUpload, isLoading: up
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [analysisProgress, setAnalysisProgress] = useState(0);
-  const [showAnalysis, setShowAnalysis] = useState(false);
+
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
   const inputRef = useRef(null);

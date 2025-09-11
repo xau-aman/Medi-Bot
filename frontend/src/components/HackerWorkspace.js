@@ -5,7 +5,6 @@ const HackerWorkspace = ({ isVisible, onClose }) => {
   const [showIntro, setShowIntro] = useState(true);
   const [terminalText, setTerminalText] = useState('');
   const [imageData, setImageData] = useState(null);
-  const [metadata, setMetadata] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const introSequence = [
@@ -50,7 +49,7 @@ const HackerWorkspace = ({ isVisible, onClose }) => {
       setTerminalText('');
       setTimeout(typeWriter, 500);
     }
-  }, [isVisible, showIntro]);
+  }, [isVisible, showIntro, introSequence]);
 
   const handleFileUpload = async (file) => {
     if (!file) return;

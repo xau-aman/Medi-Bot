@@ -5,6 +5,7 @@ const HackerWorkspace = ({ isVisible, onClose }) => {
   const [showIntro, setShowIntro] = useState(true);
   const [terminalText, setTerminalText] = useState('');
   const [imageData, setImageData] = useState(null);
+  const [metadata, setMetadata] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const introSequence = [

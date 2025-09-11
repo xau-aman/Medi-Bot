@@ -80,7 +80,6 @@ const Chat = ({ imageData, detections, onChatQuery, onImageUpload, isLoading: up
   // Analysis animation when uploading
   useEffect(() => {
     if (uploadLoading) {
-      setShowAnalysis(true);
       setAnalysisProgress(0);
       
       const interval = setInterval(() => {
@@ -98,7 +97,6 @@ const Chat = ({ imageData, detections, onChatQuery, onImageUpload, isLoading: up
     } else {
       // Hide animation when upload completes
       setTimeout(() => {
-        setShowAnalysis(false);
         setAnalysisProgress(0);
       }, 500);
     }

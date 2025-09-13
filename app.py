@@ -14,7 +14,7 @@ from werkzeug.utils import secure_filename
 import datetime
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=['*'], methods=['GET', 'POST', 'OPTIONS'], allow_headers=['Content-Type', 'Authorization'])
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
@@ -187,32 +187,41 @@ def extract_metadata(image_bytes):
 
 def query_openrouter(prompt, image_data=None):
     """Send query to OpenRouter API with image analysis capabilities"""
-    api_key = os.environ.get('OPENROUTER_API_KEY', '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')
+    api_key = os.environ.get('OPENROUTER_API_KEY', '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')
     
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://visionbot.onrender.com",
-        "X-Title": "VisionBot"
+        "HTTP-Referer": "https://medibot-ai.local",
+        "X-Title": "MediBot AI"
     }
     
+    # Medical system prompt for better context
+    system_prompt = "You are MediBot AI, a professional medical imaging assistant. You specialize in analyzing medical images and providing clinical insights. Always maintain professional medical terminology, focus on anatomical findings, and include appropriate medical disclaimers. Respond concisely and structure your analysis clearly."
+    
     if image_data:
-        messages = [{
-            "role": "user",
-            "content": [
-                {"type": "text", "text": prompt},
-                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{image_data}"}}
-            ]
-        }]
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": prompt},
+                    {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{image_data}"}}
+                ]
+            }
+        ]
         model_name = "google/gemini-2.5-flash"
     else:
-        messages = [{"role": "user", "content": prompt}]
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": prompt}
+        ]
         model_name = "openai/gpt-3.5-turbo"
     
     data = {
         "model": model_name,
         "messages": messages,
-        "max_tokens": 1000
+        "max_tokens": 800
     }
     
     try:
@@ -229,7 +238,7 @@ def query_openrouter(prompt, image_data=None):
     except requests.exceptions.RequestException as e:
         # Fallback response when API is unavailable
         if "Failed to resolve" in str(e) or "Max retries exceeded" in str(e):
-            return "Hello! I'm VisionBot. I'm currently having trouble connecting to my AI services, but I'm still here to help! Please check your internet connection or try again in a moment. You can also upload an image for local YOLO analysis which works offline."
+            return "Hello! I'm MediBot AI. I'm currently having trouble connecting to my medical AI services. Please check your internet connection or try again. Note: I can still perform basic image analysis offline."
         return f"Network error: {str(e)}"
     except Exception as e:
         return f"Error processing request: {str(e)}"
@@ -248,10 +257,16 @@ def serve_react_app(path):
     else:
         return send_from_directory('frontend/build', 'index.html')
 
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['POST', 'OPTIONS'])
 def upload_file():
+    # Handle preflight requests
+    if request.method == 'OPTIONS':
+        return jsonify({'success': True})
+        
     try:
         print("Upload request received")
+        print(f"Request files: {list(request.files.keys())}")
+        print(f"Request form: {dict(request.form)}")
         
         if 'file' not in request.files:
             print("No file in request")
@@ -288,35 +303,36 @@ def upload_file():
             with open(template_path, 'r') as f:
                 response_template = f.read()
         except:
-            # Fallback template if file doesn't exist
-            response_template = """What I see:
-• {main_subject}
-• {key_elements}
-• {background}
-
-Objects:
-• {object_1}
-• {object_2}
-• {object_3}
-
-Colors:
-• {color_1}
-• {color_2}
-• {color_3}
-
-Setting:
-• {location}
-• {time_lighting}
-
-Details:
-• {detail_1}
-• {detail_2}"""
+            # Medical analysis template - simplified
+            response_template = """Medical imaging analysis template - respond in structured format with clear sections and bullet points."""
         
-        analysis_prompt = f"""Analyze this image and fill in this exact template:
+        analysis_prompt = f"""Analyze this medical image as a radiologist would. Provide a professional medical assessment.
 
-{response_template}
+Format your response as:
 
-Replace each {{placeholder}} with actual content. Keep each bullet point short and specific. Use the exact format shown."""
+IMAGING MODALITY:
+• Identify the type of medical imaging
+
+ANATOMICAL STRUCTURES:
+• List visible anatomical structures
+• Note bone, soft tissue, or organ visibility
+
+RADIOLOGICAL FINDINGS:
+• Describe any notable findings
+• Comment on symmetry, alignment, density
+• Identify any abnormalities or pathology
+
+CLINICAL IMPRESSION:
+• Provide clinical assessment
+• Suggest differential diagnoses if applicable
+• Recommend further imaging if needed
+
+MEDICAL DISCLAIMER:
+• This is an AI-assisted analysis for educational purposes
+• Clinical correlation and professional medical evaluation required
+• Not intended for diagnostic or treatment decisions
+
+Use medical terminology appropriately. Focus on anatomical and pathological observations only. Use bullet points (•) exclusively - no asterisks or bold formatting."""
         
         ai_analysis = query_openrouter(analysis_prompt, img_base64)
         
@@ -347,8 +363,29 @@ def handle_query():
         
         print(f"Query received: {query}")
         
-        # Use OpenRouter API with image analysis
-        response = query_openrouter(query, image_data)
+        # Enhanced medical query handling
+        if image_data:
+            medical_query = f"""Based on the medical image provided, please answer this question: {query}
+            
+Provide a professional medical response using:
+            • Clear medical explanations
+            • Relevant anatomical context
+            • Clinical significance if applicable
+            • Appropriate medical disclaimers
+            
+Use bullet points (•) for structure. Maintain professional medical tone."""
+        else:
+            medical_query = f"""As MediBot AI, please answer this medical question: {query}
+            
+Provide:
+            • Professional medical information
+            • Educational context
+            • Appropriate medical disclaimers
+            • Recommendation to consult healthcare professionals
+            
+Use bullet points (•) for clear structure."""
+        
+        response = query_openrouter(medical_query, image_data)
         return jsonify({'response': response})
         
     except Exception as e:
@@ -358,4 +395,9 @@ def handle_query():
 if __name__ == '__main__':
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     port = int(os.environ.get('PORT', 5001))
-    app.run(debug=False, port=port, host='0.0.0.0')
+    # host='0.0.0.0' allows connections from mobile devices on same network
+    print(f"\n🏥 MediBot AI Backend starting...")
+    print(f"📱 Mobile app can connect to: http://[YOUR_MACBOOK_IP]:{port}")
+    print(f"🌐 Web app available at: http://localhost:{port}")
+    print(f"💡 To find your MacBook IP: ifconfig | grep 'inet ' | grep -v 127.0.0.1\n")
+    app.run(debug=True, port=port, host='0.0.0.0')

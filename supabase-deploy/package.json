@@ -1,0 +1,16 @@
+{
+  "name": "medibot-ai-backend",
+  "version": "1.0.0",
+  "description": "MediBot AI Backend for Supabase Edge Functions",
+  "main": "index.js",
+  "scripts": {
+    "dev": "supabase functions serve",
+    "deploy": "supabase functions deploy medibot-api"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.0"
+  },
+  "devDependencies": {
+    "supabase": "^1.100.0"
+  }
+}

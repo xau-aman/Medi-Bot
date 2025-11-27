@@ -1,7 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTheme } from '../contexts/ThemeContext';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
+  const { colors } = useTheme();
+
   return (
     <motion.nav
       style={{
@@ -11,9 +15,9 @@ const Navbar = () => {
         right: 0,
         zIndex: 100,
         padding: '16px 40px',
-        background: 'linear-gradient(135deg, rgba(22, 33, 62, 0.6), rgba(15, 52, 96, 0.4))',
+        background: colors.navBg,
         backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(100, 150, 255, 0.3)'
+        borderBottom: `1px solid ${colors.border}`
       }}
       initial={{ opacity: 0, y: -50 }}
       animate={{ 
@@ -47,37 +51,32 @@ const Navbar = () => {
           whileHover={{ scale: 1.05 }}
         >
           <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-            {/* Aura Effect */}
             <circle cx="16" cy="16" r="14" fill="url(#aura)" opacity="0.3"/>
             <circle cx="16" cy="16" r="10" fill="url(#aura2)" opacity="0.5"/>
-            {/* Main Eye Shape */}
-            <ellipse cx="16" cy="16" rx="12" ry="8" fill="url(#eyeGrad)" stroke="#6496ff" strokeWidth="2"/>
-            {/* Inner Eye */}
-            <ellipse cx="16" cy="16" rx="8" ry="5" fill="rgba(100,150,255,0.4)"/>
-            {/* Pupil */}
-            <circle cx="16" cy="16" r="3" fill="#6496ff"/>
-            <circle cx="16" cy="16" r="1.5" fill="#ffffff" opacity="0.8"/>
-            {/* Vision Beams */}
-            <path d="M4 16L12 16M20 16L28 16M16 4L16 12M16 20L16 28" stroke="#6496ff" strokeWidth="1.5" opacity="0.6" strokeLinecap="round"/>
+            <rect x="14" y="8" width="4" height="16" fill="url(#eyeGrad)" rx="2"/>
+            <rect x="8" y="14" width="16" height="4" fill="url(#eyeGrad)" rx="2"/>
+            <circle cx="16" cy="16" r="3" fill="#00ff88" opacity="0.8"/>
+            <circle cx="16" cy="16" r="1.5" fill="#ffffff" opacity="0.9"/>
+            <path d="M6 16L10 16L12 12L14 20L16 8L18 24L20 16L26 16" stroke="#00ff88" strokeWidth="1.5" opacity="0.6" strokeLinecap="round" fill="none"/>
             <defs>
               <radialGradient id="aura" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="rgba(100,150,255,0.1)"/>
+                <stop offset="0%" stopColor="rgba(100,255,150,0.15)"/>
                 <stop offset="100%" stopColor="transparent"/>
               </radialGradient>
               <radialGradient id="aura2" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="rgba(100,150,255,0.2)"/>
+                <stop offset="0%" stopColor="rgba(100,255,150,0.25)"/>
                 <stop offset="100%" stopColor="transparent"/>
               </radialGradient>
               <linearGradient id="eyeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="rgba(100,150,255,0.3)"/>
-                <stop offset="100%" stopColor="rgba(22,33,62,0.6)"/>
+                <stop offset="0%" stopColor="rgba(255,255,255,0.3)"/>
+                <stop offset="100%" stopColor="rgba(100,255,150,0.2)"/>
               </linearGradient>
             </defs>
           </svg>
-          VisionBot
+          MediBot AI
         </motion.div>
 
-        {/* Tech Stack Links */}
+        {/* Tech Stack Links and Theme Toggle */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
@@ -131,21 +130,26 @@ const Navbar = () => {
             Flask
           </motion.a>
 
+          <ThemeToggle />
+
           <motion.div
             style={{
               padding: '6px 12px',
-              background: 'linear-gradient(135deg, rgba(100, 150, 255, 0.2), rgba(22, 33, 62, 0.3))',
               borderRadius: '8px',
-              fontSize: '12px',
-              color: 'rgba(255, 255, 255, 0.9)',
-              border: '1px solid rgba(100, 150, 255, 0.4)'
+              fontSize: '12px'
             }}
+            animate={{
+              background: colors.surface,
+              border: `1px solid ${colors.border}`,
+              color: colors.text
+            }}
+            transition={{ duration: 0.3 }}
             whileHover={{ 
-              background: 'linear-gradient(135deg, rgba(100, 150, 255, 0.3), rgba(22, 33, 62, 0.4))',
+              background: colors.surfaceHover,
               scale: 1.05
             }}
           >
-            v1.0
+            v2.5
           </motion.div>
         </div>
       </div>

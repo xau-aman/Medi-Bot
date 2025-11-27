@@ -1,0 +1,18 @@
+MEDICAL IMAGE ANALYSIS:
+
+🔍 VISUAL FINDINGS:
+• Primary structures: {anatomical_structures}
+• Notable features: {key_features}
+• Image quality: {image_quality}
+
+📊 OBSERVATIONS:
+• Tissue appearance: {tissue_appearance}
+• Symmetry/asymmetry: {symmetry_notes}
+• Abnormalities detected: {abnormalities}
+
+⚕️ CLINICAL NOTES:
+• Relevant anatomy: {anatomy_notes}
+• Suggested focus areas: {focus_areas}
+• Recommended follow-up: {recommendations}
+
+⚠️ DISCLAIMER: This is AI-assisted analysis for educational purposes only. Always consult qualified medical professionals for diagnosis and treatment.

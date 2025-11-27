@@ -6,6 +6,7 @@ import Chat from './components/Chat';
 import SpaceBackground from './components/SpaceBackground';
 import Navbar from './components/Navbar';
 import HackerWorkspace from './components/HackerWorkspace';
+import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 
 import './App.css';
 
@@ -126,6 +127,7 @@ function App() {
               onChatQuery={handleChatQuery}
               onImageUpload={handleImageUpload}
               isLoading={isLoading}
+              onBack={() => setCurrentView('hero')}
             />
           </motion.div>
         );
@@ -149,4 +151,12 @@ function App() {
   );
 }
 
-export default App;
+const AppWithTheme = () => {
+  return (
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  );
+};
+
+export default AppWithTheme;

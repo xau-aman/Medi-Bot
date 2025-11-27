@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "MediBot AI",
+    "slug": "medibot-ai",
+    "version": "2.5.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#2d5a3d"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.medibot.ai"
+    },
+    "android": {
+      "package": "com.medibot.ai",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "plugins": [
+      "expo-image-picker"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "75086b2f-28bd-4389-8686-247838a99aac"
+      }
+    }
+  }
+}

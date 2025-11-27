@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: medibot-ai-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: OPENROUTER_API_KEY
+        value: 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

@@ -1,15 +1,15 @@
-# VisionBot - Modern React + Flask AI Image Analysis
+# MediBot AI - Medical Image Analysis Platform
 
-A modern web application built with React frontend and Flask backend that combines YOLO object detection with AI-powered chat capabilities.
+A professional medical AI assistant built with React frontend and Flask backend that combines YOLO anatomical detection with medical AI-powered clinical insights for healthcare professionals and medical education.
 
 ## Features
 
-- **Modern React Frontend**: Built with React 18, Framer Motion animations, and Tailwind-inspired styling
-- **YOLO Object Detection**: Real-time object detection using YOLOv8
-- **AI Chat Interface**: Interactive chat powered by OpenRouter API
-- **Drag & Drop Upload**: Modern file upload with preview
-- **Real-time Analysis**: Live progress tracking and results
-- **Responsive Design**: Works perfectly on desktop and mobile
+- **Medical React Frontend**: Built with React 18, healthcare-themed animations, and medical UI components
+- **YOLO Anatomical Detection**: Real-time anatomical structure detection using YOLOv8
+- **Medical AI Chat**: Interactive medical consultation powered by OpenRouter API
+- **Medical Image Upload**: Secure upload for X-rays, MRIs, CT scans with preview
+- **Clinical Analysis**: Live medical image processing and clinical insights
+- **HIPAA Compliant Design**: Secure, privacy-focused medical interface
 
 ## 🛠 Tech Stack
 
@@ -101,12 +101,14 @@ Access the app at `http://localhost:5000`
 - **Interactive chat** with suggested questions
 - **Responsive layout** for all screen sizes
 
-## Usage
+## Medical Usage
 
-1. **Upload Image**: Drag and drop or click to select an image file
-2. **AI Analysis**: Watch real-time progress as YOLO processes your image
-3. **View Results**: See detected objects with confidence scores
-4. **Chat**: Ask questions about your image and get AI-powered responses
+1. **Upload Medical Image**: Drag and drop X-rays, MRIs, CT scans, or other medical images
+2. **AI Medical Analysis**: Watch real-time progress as AI processes your medical image
+3. **View Clinical Results**: See detected anatomical structures and medical findings
+4. **Medical Consultation**: Ask medical questions and get AI-powered clinical insights
+
+⚠️ **Medical Disclaimer**: This AI tool is for educational and research purposes only. Always consult qualified healthcare professionals for medical diagnosis and treatment decisions.
 
 ## 🔧 API Endpoints
 
@@ -133,19 +135,21 @@ visionbot/
 
 ## Supported Features
 
-- **Image Formats**: PNG, JPG, JPEG, GIF, BMP
+- **Medical Image Formats**: PNG, JPG, JPEG, DICOM, BMP
 - **Max File Size**: 16MB
-- **Object Detection**: 80+ object classes via YOLO
-- **AI Models**: Claude, GPT, and other OpenRouter models
-- **Browsers**: Chrome, Firefox, Safari, Edge
+- **Anatomical Detection**: Medical structures via YOLO
+- **Medical AI Models**: Gemini Flash, GPT, and specialized medical models
+- **HIPAA Compliance**: Secure medical data processing
+- **Medical Specialties**: Radiology, Cardiology, Neurology, Orthopedics, Pathology
 
-## Future Enhancements
+## Future Medical Enhancements
 
-- Real-time webcam analysis
-- Batch image processing
-- Custom model training
-- Advanced visualization
-- Export functionality
+- DICOM file support
+- Medical report generation
+- Integration with medical databases
+- Advanced medical visualization
+- Clinical decision support
+- Multi-modal medical analysis
 
 ## License
 
